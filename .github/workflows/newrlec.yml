@@ -6,15 +6,28 @@ on:
     branches: [ "main", "master" ]
   workflow_dispatch:
     
+# jobs:
+  # create_newrelic_account:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Create New Relic Account
+  #       env:
+  #         NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
+  #       run: |
+  #         curl -X POST \
+  #           -H "X-Api-Key:${{ env.NEW_RELIC_API_KEY }}" \
+  #           -d 'account_name=example_account' \
+  #           'https://api.newrelic.com/v2/accounts.json'
+
+
+
 jobs:
-  create_newrelic_account:
+  newrelic_account_creation:
     runs-on: ubuntu-latest
     steps:
-      - name: Create New Relic Account
-        env:
-          NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
-        run: |
-          curl -X POST \
-            -H "X-Api-Key:${{ env.NEW_RELIC_API_KEY }}" \
-            -d 'account_name=example_account' \
-            'https://api.newrelic.com/v2/accounts.json'
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install New Relic CLI
+        run: curl -Ls https://download.newrelic.com/install/newrelic-cli/install.sh | bash
+      - name: Create New Relic account
+        run: newrelic --api-key=NRAK-45PIASJW2M48QKFOYAZE4FK1I4Y account create --name=ATUL KUMAT PANDEY --email=atul.pandey@cludeq.com --product=monitoring
