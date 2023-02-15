@@ -28,6 +28,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Install New Relic CLI
-        run: curl -Ls https://download.newrelic.com/install/newrelic-cli/install.sh | bash
+        run: curl -Ls https://download.newrelic.com/install/newrelic-cli/install.sh 
       - name: Create New Relic account
         run: newrelic --api-key=NRAK-45PIASJW2M48QKFOYAZE4FK1I4Y account create --name=ATUL KUMAT PANDEY --email=atul.pandey@cludeq.com --product=monitoring
