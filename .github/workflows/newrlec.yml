@@ -1,4 +1,4 @@
-name: Release
+name: New Relic Account Creation
 on:
   push:
     branches: [ "main", "master" ]
@@ -7,8 +7,14 @@ on:
   workflow_dispatch:
     
 jobs:
-  newrelic:
+  create_newrelic_account:
     runs-on: ubuntu-latest
     steps:
-      - name: my-step
-        run: echo "Hello World!"
+      - name: Create New Relic Account
+        env:
+          NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
+        run: |
+          curl -X POST \
+            -H "X-Api-Key:${{ env.NEW_RELIC_API_KEY }}" \
+            -d 'account_name=example_account' \
+            'https://api.newrelic.com/v2/accounts.json'
